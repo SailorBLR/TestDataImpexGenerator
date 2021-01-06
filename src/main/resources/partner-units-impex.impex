@@ -1,0 +1,23 @@
+# Partner Orgs
+INSERT_UPDATE B2BUnit;uid[unique=true];Name;locName[lang=$lang];description;userTaxGroup(code);buyer[default =true];active[default =true];customerOrgs(uid);erpcustomerid
+;partner_org_191_1;Partner Unit Name;"Automation: Partner Unit";"Automation: Partner Unit";;;;;partner_org_191_1;
+# Partner contacts
+INSERT_UPDATE B2BCustomer; uid[unique = true]; defaultB2BUnit(uid); groups(uid)[mode = append]; title(code); name ; email ; customerID ; $encodedSsoPassword; sapIsReplicated[default = true]; sUserId
+;partner_contact_191_1_1@email.com;partner_org_191_1;partner_org_191_1,customergroup,OD_BUY;0001;Partner Contact;partner_contact_191_1_1@email.com;partner_ID_191;;;partner_org_191_1
+
+# Partner Org addresses
+INSERT_UPDATE Address; owner(B2BUnit.uid) ; publicKey[unique = true] ; sapCustomerID ; sapAddressUsage; streetname ; streetnumber; postalcode; town ; country(isocode); fax ; phone1 ; cellphone ; sapAddressUsageCounter; duplicate[unique = true, default = false]
+;partner_org_191_1;partner_contact_191_1_1@email.com;partner_ID_191;AG;Legiendamm;141-8627;Berlin;DE;+81332808114;0345142009;+81345142009;000;;
+
+# Partner Orgs Sales units
+INSERT_UPDATE B2BUnit;uid[unique =true];name;groups(uid)[mode =append];locName[lang =$lang];description;userTaxGroup(code);active[default =true];supplier[allownull =true];buyer[allownull =true];userPriceGroup(code);userDiscountGroup(code);incoterms1;incoterms2;shippingconditions;deliverypriority
+;partner_org_191_1_0088_01_01;Partner Unit Name Sales Unit 0088partner_org_191_1,customergroup,OD_BUY;Partner Unit Name Sales Unit 0088;Partner Unit Name Sales Unit 0088;;;;true;JP;01;DAP;Tokyo;01;00
+# Partner Contact addresses
+INSERT_UPDATE Address;owner(B2BCustomer.uid);publicKey[unique = true];sapCustomerID;sapAddressUsage;streetname;streetnumber;postalcode;town;country(isocode);fax;phone1;cellphone;sapAddressUsageCounter;duplicate[unique = true,default =false]
+;partner_contact_191_1_1@email.com;partner_contact_191_1_1@email.com;partner_org_191_1;AP;Legiendamm;141-8627;Berlin;DE;+81332808114;0345142009;+81345142009;000;
+
+# Partner Managers relations to units and solutions
+INSERT_UPDATE PartnerManagerRelatedUnits; partnerManager(uid)[unique = true] ; unit(uid)[unique = true]; solutionTypes(category(code, $catalogVersionOnline))
+
+# Attachment Approvers location relations
+INSERT_UPDATE LocationRelatedAttachmentApproverUsers; country(isocode)[unique = true]; region(isocode)[unique = true]; attachmentApprover(uid)[unique = true]
