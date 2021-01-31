@@ -1,5 +1,8 @@
 package com.epam.generator.model;
 
+/**
+ * Possible order types enum
+ */
 public enum OrderTypeEnum {
     INITIAL("INITIAL"),
     REDUCTION("REDUCTION"),

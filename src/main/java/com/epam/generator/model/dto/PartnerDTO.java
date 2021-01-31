@@ -1,6 +1,4 @@
 package com.epam.generator.model.dto;
-//INSERT_UPDATE B2BUnit;uid[unique=true];Name;locName[lang=$lang];description;userTaxGroup(code);buyer[default =true];active[default =true];customerOrgs(uid);erpcustomerid
-
 
 import com.epam.generator.model.entity.PartnerContact;
 
@@ -30,12 +28,7 @@ public class PartnerDTO {
         this.partnerUsers.addAll(partnerUsers);
     }
 
-
-    @Override
-    public String toString() {
-        return "PartnerDTO{" +
-                "uid='" + uid + '\'' +
-                ", partnerUsers=" + partnerUsers +
-                '}';
+    @Override public String toString() {
+        return "PartnerDTO{" + "uid='" + uid + '\'' + ", partnerUsers=" + partnerUsers + '}';
     }
 }

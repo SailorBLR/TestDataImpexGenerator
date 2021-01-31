@@ -18,13 +18,12 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 import static com.epam.generator.utils.DataGeneratorConstants.ContractConstants.BACKEND_CONTRACT_ID_PREFIX;
 import static com.epam.generator.utils.DataGeneratorConstants.ContractConstants.CURRENCY_EUR;
-import static com.epam.generator.utils.DataGeneratorConstants.ContractConstants.DATE_FORMAT;
 import static com.epam.generator.utils.DataGeneratorConstants.ContractConstants.GENERAL_CONTRACT_DESCRIPTION;
 import static com.epam.generator.utils.DataGeneratorConstants.ContractConstants.PROVIDER_CONTRACT_DESCRIPTION;
+import static com.epam.generator.utils.DataGeneratorConstants.ContractConstants.FORMATTER;
 import static com.epam.generator.utils.DataGeneratorConstants.PartnerConstants.SEMICOLON;
 import static org.springframework.util.CollectionUtils.isEmpty;
 
@@ -35,12 +34,12 @@ public class ContractImpexGeneratorService implements ImpexGenerator {
 
     @Autowired
     ResourceLoader resourceLoader;
-    @Value("${impex.labels.provider-contract}")
+    @Value("${impex.labels.customer-contract-header}")
     private String providerContractHeader;
+    @Value("${impex.labels.provider-contract}")
+    private String providerContractLabel;
     @Value("${impex.labels.general-contract}")
     private String generalContractHeader;
-    private final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern(DATE_FORMAT);
-
 
     @Override
     public void generate(TestDataDTO testDataDTO) {
@@ -51,7 +50,7 @@ public class ContractImpexGeneratorService implements ImpexGenerator {
             generateGeneralContract(testDataDTO, writer);
 
         } catch (IOException e) {
-            LOG.error("Shit happens", e.getCause());
+            LOG.error("IT happens", e.getCause());
         }
     }
 
@@ -62,7 +61,7 @@ public class ContractImpexGeneratorService implements ImpexGenerator {
         writer.newLine();
         for (CustomerDTO customerDTO : testDataDTO.getCustomers()) {
             if (!isEmpty(customerDTO.getContracts())) {
-                appendItem(writer, CustomerOrgGenUtil.getGeneralContractUid(customerDTO));
+                appendItem(writer, customerDTO.getContracts().get(0).getPredecessorId());
                 appendItem(writer, customerDTO.getPartnerContact());
                 appendItem(writer, LocalDateTime.now().format(FORMATTER));
                 appendItem(writer, CURRENCY_EUR);
@@ -76,9 +75,11 @@ public class ContractImpexGeneratorService implements ImpexGenerator {
     }
 
     private void generateProviderContracts(final TestDataDTO testDataDTO, BufferedWriter writer) throws IOException {
+        writer.write(providerContractHeader);
+        writer.newLine();
         writer.write("# Provider Contracts");
         writer.newLine();
-        writer.write(providerContractHeader);
+        writer.write(providerContractLabel);
         writer.newLine();
         for (CustomerDTO customerDTO : testDataDTO.getCustomers()) {
             for (ContractDTO contract : customerDTO.getContracts()) {
@@ -90,7 +91,7 @@ public class ContractImpexGeneratorService implements ImpexGenerator {
                 appendItem(writer, CURRENCY_EUR);
                 appendItem(writer, contract.getEndDate().format(FORMATTER));
                 appendItem(writer, SolutionEnum.valueOf(contract.getSolution()).getValue());
-                appendItem(writer, contract.getSolutionEdition());
+                appendItem(writer, SolutionEditionEnum.valueOf(contract.getSolutionEdition()).getValue());
                 appendItem(writer, PROVIDER_CONTRACT_DESCRIPTION);
                 appendItem(writer, BACKEND_CONTRACT_ID_PREFIX.concat(
                         CustomerOrgGenUtil.getPartnerContractNumeric(contract.getUid())));
@@ -104,9 +105,5 @@ public class ContractImpexGeneratorService implements ImpexGenerator {
     private void appendItem(BufferedWriter writer, final String item) throws IOException {
         writer.append(SEMICOLON);
         writer.append(item);
-    }
-
-    private void appendDefault(BufferedWriter writer) throws IOException {
-        writer.append(SEMICOLON);
     }
 }

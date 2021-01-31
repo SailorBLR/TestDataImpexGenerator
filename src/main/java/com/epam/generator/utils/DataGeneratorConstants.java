@@ -1,5 +1,7 @@
 package com.epam.generator.utils;
 
+import java.time.format.DateTimeFormatter;
+
 public class DataGeneratorConstants {
 
     private DataGeneratorConstants() {
@@ -70,23 +72,19 @@ public class DataGeneratorConstants {
         private ContractConstants() {
         }
 
-        public static final String PROVIDER_CONTRACT_PREFIX = "provider_contract_";
-        public static final String GENERAL_CONTRACT_PREFIX = "general_contract_";
-        public static final String DATE_FORMAT = "dd.MM.yyyy";
+        public static final String PROVIDER_CONTRACT_PREFIX = "provider_contract";
+        public static final String GENERAL_CONTRACT_PREFIX = "general_contract";
+        public static final String TEST_ORDER_PREFIX = "test_order";
+        public static final String DATE_FORMAT = "dd.MM.yyyy HH:mm";
         public static final String CURRENCY_EUR = "EUR";
         public static final String GENERAL_CONTRACT_DESCRIPTION = "General contract description";
         public static final String PROVIDER_CONTRACT_DESCRIPTION = "Provider contract description";
         public static final String BACKEND_CONTRACT_ID_PREFIX = "bcId_";
-        public static final String ORDER_PREFIX = "test_order_";
-
-        public static final String CUSTOMER_CONTACT_PREFIX = "customer_contact_";
-        public static final String CUSTOMER_PREFIX = "customer_";
-        public static final String B2BCUSTOMER_GROUP = "b2bcustomergroup";
-        public static final String CUSTOMER_NAME_PREFIX = "Inferno ";
-        public static final String CUSTOMER_KEY_POSTFIX = "F3732DB6A6E18D4A94A7C28E35000090";
-        public static final String CUSTOMER_STREET = "Rue Della Celidèe";
-        public static final String CUSTOMER_TOWN = "Bruxelles";
-        public static final String CUSTOMER_COUNTRY = "BE";
+        public static final String BACKEND_ORDER_ID_PREFIX = "boId_";
+        public static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern(DATE_FORMAT);
+        public static final String BASE_STORE = "$baseStoreId";
+        public static final String CUSTOMER_PREFIX = "customer_org";
+        public static final String CATALOG_VARIABLE = ":$productCVOnline";
 
     }
 }

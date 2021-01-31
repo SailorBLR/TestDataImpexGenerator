@@ -25,8 +25,10 @@ public class PartnerImpexGeneratorService implements ImpexGenerator {
 
     @Autowired
     ResourceLoader resourceLoader;
-    @Value("${impex.labels.partner-org}")
+    @Value("${impex.labels.partner-org-header}")
     private String partnerOrgHeader;
+    @Value("${impex.labels.partner-org}")
+    private String partnerOrgLabel;
     @Value("${impex.labels.partner-contacts}")
     private String partnerContactsHeader;
     @Value("${impex.labels.partner-org-address}")
@@ -77,9 +79,11 @@ public class PartnerImpexGeneratorService implements ImpexGenerator {
     }
 
     private void generatePartnerOrg(TestDataDTO testDataDTO, BufferedWriter writer) throws IOException {
+        writer.write(partnerOrgHeader);
+        writer.newLine();
         writer.write("# Partner Orgs");
         writer.newLine();
-        writer.write(partnerOrgHeader);
+        writer.write(partnerOrgLabel);
         writer.newLine();
         appendItem(writer, testDataDTO.getPartnerDTO().getUid());
         appendItem(writer, name);

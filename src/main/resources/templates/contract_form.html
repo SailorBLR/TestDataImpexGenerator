@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+>
+
+<head>
+    <link href="/css/styles.css" rel="stylesheet"></link>
+    <script type="text/javascript"
+            src="http://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script type="text/javascript" src="js/contract-form.js"></script>
+    <meta charset="ISO-8859-1">
+    <title>Registration Success</title>
+
+</head>
+<body>
+<div align="center">
+    <h2>Registration Succeeded!</h2>
+    <span>Registered Partner Org Uid:</span><span th:text="${testData.partnerDTO.uid}"></span><br/>
+    <span>Registered Customer Orgs:</span><br/>
+
+    <tr th:each="customer: ${testData.customers}">
+        Uid :
+        <td th:text="${customer.uid}"/>
+        <br/>
+    </tr>
+
+</div>
+
+
+<div class="container" align="center">
+    <div class="starter-template">
+        <h2>Adding contract form</h2>
+        <form class="form-horizontal" id="contractForm" th:object="${contractData}">
+            <span>Select partner contact</span>
+            <span><select th:field="*{partnerContactUid}" id="partnerContactUid">
+                <option th:each="partnerContact : ${testData.partnerDTO.partnerUsers}" th:value="${partnerContact.uid}"
+                        th:text="${partnerContact.uid}">
+                </option>
+            </select></span><br/>
+            <span>Select customer</span>
+            <span><select th:field="*{customerUid}" id="customerUid">
+                <option th:each="customer : ${testData.customers}" th:value="${customer.uid}" th:text="${customer.uid}">
+                </option>
+            </select></span><br/>
+
+            <span>Select solution</span>
+            <span><select th:field="*{solution}" id="solution">
+                <option th:each="solution : ${T(com.epam.generator.model.SolutionEnum).values()}"
+                        th:value="${solution}" th:text="${solution}">
+                </option>
+            </select></span><br/>
+
+            <span>Select solution edition</span>
+            <span><select th:field="*{solutionEdition}" id="solutionEdition">
+            </select></span><br/>
+
+            <label>Should contract be manageable?</label>
+            <span><label class="radio-inline">
+                <input type="radio" name="manageable" id="optionsRadiosInline1" value="true"
+                       th:checked="*{manageable}"/>Yes
+            </label>
+            <label class="radio-inline">
+                <input type="radio" name="manageable" id="optionsRadiosInline2" value="false"
+                       th:checked="*{manageable} == false"/>No
+            </label>
+            </span><br/>
+
+
+            <label>Contract start date:</label>
+            <input type="datetime-local" id="startDate" th:field="*{startDate}"/><br/>
+
+            <label>Contract end date:</label>
+            <input type="datetime-local" id="endDate" th:field="*{endDate}"/><br/>
+
+            <span>Select transaction type</span>
+            <span><select th:field="*{contractType}" id="contractType">
+                <option th:each="type : ${T(com.epam.generator.model.TransactionTypeEnum).values()}"
+                        th:value="${type}" th:text="${type.value}">
+                </option>
+            </select></span><br/>
+
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button type="submit" id="add-contract"
+                            class="btn btn-primary btn-lg">Add contract
+                    </button>
+                </div>
+            </div>
+        </form>
+
+    </div>
+
+</div>
+<div id="feedback"></div>
+
+<div class="container" align="center">
+    <b>Contracts to be generated</b>
+    <ul id="contracts"></ul>
+</div>
+
+<div class="container" align="center">
+    <div class="starter-template">
+        <h2>Adding Orders form</h2>
+        <form class="form-horizontal" id="orderForm" th:object="${orderData}">
+
+            <label>Select order type</label>
+            <span><select th:field="*{orderType}" id="orderType">
+                <option th:each="type : ${T(com.epam.generator.model.OrderTypeEnum).values()}"
+                        th:value="${type}" th:text="${type.value}">
+                </option>
+            </select></span><br/>
+
+            <label>Select order predecessor</label>
+            <span><select th:field="*{predecessorId}" id="predecessorId">
+            </select></span><br/>
+
+            <label>How many order entries required:</label>
+            <input type="number" id="orderEntries" th:field="*{orderEntries}"/><br/>
+
+            <label>Specify order entry price</label>
+            <input type="number" step="0.01" id="entriesPrice" th:field="*{entriesPrice}"/><br/>
+
+            <span>Select transaction type</span>
+            <span><select th:field="*{contractType}" id="transactionType">
+                <option th:each="type : ${T(com.epam.generator.model.TransactionTypeEnum).values()}"
+                        th:value="${type}" th:text="${type.value}">
+                </option>
+            </select></span><br/>
+
+            <span>Select order status</span>
+            <span><select th:field="*{orderStatus}" id="orderStatus">
+                <option th:each="status : ${T(com.epam.generator.model.OrderStatusEnum).values()}"
+                        th:value="${status}" th:text="${status.value}">
+                </option>
+            </select></span><br/>
+
+
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button type="submit" id="add-order"
+                            class="btn btn-primary btn-lg">Add order
+                    </button>
+                </div>
+            </div>
+        </form>
+
+    </div>
+
+</div>
+<div id="feedback-order"></div>
+
+<div class="container" align="center">
+    <b>Orders to be generated</b>
+    <ul id="orders"></ul>
+</div>
+
+<div align="center">
+    <a href="/generate">Generate Impexes</a>
+</div>
+
+</body>
+</html>

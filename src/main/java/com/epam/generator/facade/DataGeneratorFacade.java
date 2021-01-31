@@ -6,6 +6,9 @@ import com.epam.generator.service.impl.PartnerDataCreationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+/**
+ * Facade composes data creation services
+ */
 @Component
 public class DataGeneratorFacade {
     @Autowired

@@ -60,11 +60,7 @@ public class PartnerContact {
         this.contactTypeEnum = contactTypeEnum;
     }
 
-    @Override
-    public String toString() {
-        return "PartnerContact{" +
-                "uid='" + uid + '\'' +
-                ", contactType=" + contactTypeEnum +
-                '}';
+    @Override public String toString() {
+        return "PartnerContact{" + "uid='" + uid + '\'' + ", contactType=" + contactTypeEnum + '}';
     }
 }

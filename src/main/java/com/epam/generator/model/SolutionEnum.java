@@ -1,11 +1,14 @@
 package com.epam.generator.model;
 
+/**
+ * Solution enum
+ */
 public enum SolutionEnum {
 
-    PREM("prem"),
-    CLOUD_SAP("cloud_sap"),
-    CLOUD_PARTNER("cloud_part"),
-    BYD_CLOUD("byd_cloud");
+    PREM("$sol_prem"),
+    CLOUD_SAP("$sol_cloudSap"),
+    CLOUD_PARTNER("$sol_cloudPartner"),
+    BYD_CLOUD("$solution_byd");
 
     private String value;
 

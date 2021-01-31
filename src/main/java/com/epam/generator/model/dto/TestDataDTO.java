@@ -85,14 +85,9 @@ public class TestDataDTO {
         this.requiredCustomersQuantity = requiredCustomersQuantity;
     }
 
-    @Override
-    public String toString() {
-        return "TestDataDTO{" +
-                "storyId='" + storyId + '\'' +
-                ", partnerNumber=" + partnerNumber +
-                ", partnerDTO=" + partnerDTO +
-                ", requiredCustomersQuantity=" + requiredCustomersQuantity +
-                ", customers=" + customers +
-                '}';
+    @Override public String toString() {
+        return "TestDataDTO{" + "storyId='" + storyId + '\'' + ", partnerNumber=" + partnerNumber + ", partnerDTO="
+                + partnerDTO + ", requiredCustomersQuantity=" + requiredCustomersQuantity + ", customers=" + customers
+                + '}';
     }
 }

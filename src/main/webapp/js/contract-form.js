@@ -6,8 +6,19 @@ $(document).ready(function () {
         fire_ajax_contract_submit();
     });
 
-    $("#solution").change(function (event){
+    $("#orderForm").submit(function (event) {
+        event.preventDefault();
+        fire_ajax_order_submit();
+    });
+
+    $("#solution").change(function (event) {
+        event.preventDefault();
         updateSolutionEdition();
+    });
+
+    $("#orderType").change(function (event) {
+        event.preventDefault();
+        updatePredecessorsList();
     });
 
 
@@ -15,15 +26,14 @@ $(document).ready(function () {
 
 function fire_ajax_contract_submit() {
 
-    var contractData = {}
+    var contractData = {};
     contractData["customerUid"] = $("#customerUid").val();
     contractData["solution"] = $("#solution").val();
     contractData["solutionEdition"] = $("#solutionEdition").val();
     contractData["manageable"] = $('input[name="manageable"]').val();
     contractData["startDate"] = $("#startDate").val();
     contractData["endDate"] = $("#endDate").val();
-//    contractData["contractType"] = $("#contractType").val();
-//    contractData["orderEntries"] = $("#orderEntries").val();
+    contractData["contractType"] = $("#contractType").val();
     contractData["partnerContactUid"] = $("#partnerContactUid").val();
 
 
@@ -40,12 +50,57 @@ function fire_ajax_contract_submit() {
         success: function (data) {
             var html = '';
             var len = data.contractDTOList.length;
-            for ( var i = 0; i < len; i++) {
-                html += '<li>'
-                + data.contractDTOList[i].uid + '   ' + data.contractDTOList[i].contractType + '   ' +
-                data.contractDTOList[i].solutionEdition + '</li>';
-             }
+            for (var i = 0; i < len; i++) {
+                html += '<li data-id="' + data.contractDTOList[i].uid + '" data-contact="' +
+                    data.contractDTOList[i].partnerContactUid + '">'
+                    + data.contractDTOList[i].uid + '   '
+                    + data.contractDTOList[i].contractType + '   '
+                    + data.contractDTOList[i].solutionEdition + '</li>';
+            }
             $('#contracts').html(html);
+            updatePredecessorsList();
+            $("#btn-search").prop("disabled", false);
+        },
+        error: function (e) {
+            $('#feedback').html(json);
+            console.log("ERROR : ", e);
+            $("#btn-search").prop("disabled", false);
+        }
+    });
+}
+
+function fire_ajax_order_submit() {
+
+    let orderData = {};
+
+    orderData["orderType"] = $("#orderType").val();
+    orderData["predecessorId"] = $("#predecessorId").val();
+    orderData["orderEntries"] = $("#orderEntries").val();
+    orderData["entriesPrice"] = $("#entriesPrice").val();
+    orderData["orderStatus"] = $("orderStatus").val();
+
+
+    $("#btn-search").prop("disabled", true);
+
+    $.ajax({
+        type: "POST",
+        contentType: "application/json",
+        url: "/order/add",
+        data: JSON.stringify(orderData),
+        dataType: 'json',
+        cache: false,
+        timeout: 600000,
+        success: function (data) {
+            let html = '';
+            let lenContracts = data.contractDTOList.length;
+            for (let i = 0; i < lenContracts; i++) {
+                html += '<li data-id="' + data.contractDTOList[i].uid + '">'
+                    + data.contractDTOList[i].uid + '   '
+                    + '</li>';
+
+            }
+            $('#orders').html(html);
+            updatePredecessorsList();
             $("#btn-search").prop("disabled", false);
         },
         error: function (e) {
@@ -58,8 +113,6 @@ function fire_ajax_contract_submit() {
 
 function updateSolutionEdition() {
 
-    console.log($("#solution").val());
-
     $.ajax({
         type: "POST",
         contentType: "application/json",
@@ -71,9 +124,9 @@ function updateSolutionEdition() {
         success: function (data) {
             var html = '';
             var len = data.solutionEditions.length;
-            for ( var i = 0; i < len; i++) {
-            	html += '<option value="' + data.solutionEditions[i] + '">'
-            	+ data.solutionEditions[i] + '</option>';
+            for (var i = 0; i < len; i++) {
+                html += '<option value="' + data.solutionEditions[i] + '">'
+                    + data.solutionEditions[i] + '</option>';
             }
             $('#solutionEdition').html(html);
         },
@@ -82,4 +135,22 @@ function updateSolutionEdition() {
             console.log("ERROR : ", e);
         }
     });
+}
+
+function updatePredecessorsList() {
+    var htmlPredecessor = '';
+    if ($("#orderType").val() === 'INITIAL') {
+        let list = $('#contracts').children();
+        list.toArray().forEach(function (item, index) {
+            htmlPredecessor += '<option value="' + item.getAttribute('data-id') + '">'
+                + item.getAttribute('data-id') + '</option>';
+        });
+    } else {
+        let list = $('#orders').children();
+        list.toArray().forEach(function (item, index) {
+            htmlPredecessor += '<option value="' + item.getAttribute('data-id') + '">'
+                + item.getAttribute('data-id') + '</option>';
+        });
+    }
+    $('#predecessorId').html(htmlPredecessor);
 }

@@ -30,6 +30,8 @@ public class TypesImpexGeneratorService implements ImpexGenerator {
         LOG.info("----------PARTNER TYPES IMPEX GENERATION----------");
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(OUTPUT_PATH, false))) {
 
+            writer.write("$lang = en");
+            writer.newLine();
             writer.write("# Partner Types");
             writer.newLine();
             writer.write(partnerTypesHeader);
@@ -45,7 +47,7 @@ public class TypesImpexGeneratorService implements ImpexGenerator {
             writer.write(lineForCategories("RUN", "CB1R", "", testDataDTO.getPartnerDTO().getUid()));
 
         } catch (IOException e) {
-            LOG.error("Shit happens", e.getCause());
+            LOG.error("IT", e.getCause());
         }
     }
 

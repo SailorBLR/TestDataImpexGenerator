@@ -1,6 +1,8 @@
 package com.epam.generator.model.dto;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ContractDTO {
     private String uid;
@@ -8,15 +10,19 @@ public class ContractDTO {
     private String solution;
     private String solutionEdition;
     private boolean manageable;
-    private LocalDate startDate;
-    private LocalDate endDate;
+    private LocalDateTime startDate;
+    private LocalDateTime endDate;
     private String orderType;
     private int orderEntries;
     private String partnerContactUid;
     private String contractType;
     private String predecessorId;
+    private String orderStatus;
+    private List<ContractDTO> orders;
+    private Double entriesPrice;
 
-    public ContractDTO(){
+    public ContractDTO() {
+        this.orders = new ArrayList<>();
         this.manageable = false;
     }
 
@@ -60,19 +66,19 @@ public class ContractDTO {
         this.manageable = manageable;
     }
 
-    public LocalDate getStartDate() {
+    public LocalDateTime getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(LocalDate startDate) {
+    public void setStartDate(LocalDateTime startDate) {
         this.startDate = startDate;
     }
 
-    public LocalDate getEndDate() {
+    public LocalDateTime getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(LocalDate endDate) {
+    public void setEndDate(LocalDateTime endDate) {
         this.endDate = endDate;
     }
 
@@ -116,27 +122,62 @@ public class ContractDTO {
         this.predecessorId = predecessorId;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+    public String getOrderStatus() {
+        return orderStatus;
+    }
+
+    public void setOrderStatus(String orderStatus) {
+        this.orderStatus = orderStatus;
+    }
+
+    public List<ContractDTO> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<ContractDTO> orders) {
+        this.orders = orders;
+    }
+
+    public void addOrder(ContractDTO order) {
+        this.orders.add(order);
+    }
+
+    public Double getEntriesPrice() {
+        return entriesPrice;
+    }
+
+    public void setEntriesPrice(Double entriesPrice) {
+        this.entriesPrice = entriesPrice;
+    }
+
+    @Override public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
 
         ContractDTO that = (ContractDTO) o;
 
-        if (manageable != that.manageable) return false;
-        if (orderEntries != that.orderEntries) return false;
-        if (uid != null ? !uid.equals(that.uid) : that.uid != null) return false;
-        if (customerUid != null ? !customerUid.equals(that.customerUid) : that.customerUid != null) return false;
-        if (solution != null ? !solution.equals(that.solution) : that.solution != null) return false;
+        if (manageable != that.manageable)
+            return false;
+        if (orderEntries != that.orderEntries)
+            return false;
+        if (uid != null ? !uid.equals(that.uid) : that.uid != null)
+            return false;
+        if (customerUid != null ? !customerUid.equals(that.customerUid) : that.customerUid != null)
+            return false;
+        if (solution != null ? !solution.equals(that.solution) : that.solution != null)
+            return false;
         if (solutionEdition != null ? !solutionEdition.equals(that.solutionEdition) : that.solutionEdition != null)
             return false;
-        if (startDate != null ? !startDate.equals(that.startDate) : that.startDate != null) return false;
-        if (endDate != null ? !endDate.equals(that.endDate) : that.endDate != null) return false;
+        if (startDate != null ? !startDate.equals(that.startDate) : that.startDate != null)
+            return false;
+        if (endDate != null ? !endDate.equals(that.endDate) : that.endDate != null)
+            return false;
         return orderType != null ? orderType.equals(that.orderType) : that.orderType == null;
     }
 
-    @Override
-    public int hashCode() {
+    @Override public int hashCode() {
         int result = uid != null ? uid.hashCode() : 0;
         result = 31 * result + (customerUid != null ? customerUid.hashCode() : 0);
         result = 31 * result + (solution != null ? solution.hashCode() : 0);
@@ -149,18 +190,10 @@ public class ContractDTO {
         return result;
     }
 
-    @Override
-    public String toString() {
-        return "ContractDTO{" +
-                "uid='" + uid + '\'' +
-                ", customerUid='" + customerUid + '\'' +
-                ", solution='" + solution + '\'' +
-                ", solutionEdition='" + solutionEdition + '\'' +
-                ", manageable=" + manageable +
-                ", startDate=" + startDate +
-                ", endDate=" + endDate +
-                ", orderType='" + orderType + '\'' +
-                ", orderEntries=" + orderEntries +
-                '}';
+    @Override public String toString() {
+        return "ContractDTO{" + "uid='" + uid + '\'' + ", customerUid='" + customerUid + '\'' + ", solution='"
+                + solution + '\'' + ", solutionEdition='" + solutionEdition + '\'' + ", manageable=" + manageable
+                + ", startDate=" + startDate + ", endDate=" + endDate + ", orderType='" + orderType + '\''
+                + ", orderEntries=" + orderEntries + '}';
     }
 }

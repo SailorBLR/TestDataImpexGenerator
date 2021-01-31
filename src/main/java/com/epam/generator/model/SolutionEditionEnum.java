@@ -1,14 +1,17 @@
 package com.epam.generator.model;
 
+/**
+ * Possible solution editions enum
+ */
 public enum SolutionEditionEnum {
-    CLOUD_SAP_START("cloud_sap_start"),
-    CLOUD_SAP_PROF("cloud_sap_prof"),
-    CLOUD_PART_START("cloud_partner_start"),
-    CLOUD_PART_PROF("cloud_partner_prof"),
-    PREM_START("prem_start"),
-    PREM_PROF("prem_prof"),
-    BYD_CLASSIC("byd_cloud_classic"),
-    BYD_SIMPL("byd_cloud_simplified");
+    CLOUD_SAP_START("$solEd_cloudSapStart"),
+    CLOUD_SAP_PROF("$solEd_cloudSapProf"),
+    CLOUD_PART_START("$solEd_cloudPartnerStart"),
+    CLOUD_PART_PROF("$solEd_cloudPartnerProf"),
+    PREM_START("$solEd_premStart"),
+    PREM_PROF("$solEd_premProf"),
+    BYD_CLASSIC("$solEd_bydcloudclassic"),
+    BYD_SIMPL("$solEd_bydSimpl");
 
     private String value;
 

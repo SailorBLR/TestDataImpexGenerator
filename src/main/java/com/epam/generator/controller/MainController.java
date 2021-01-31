@@ -4,8 +4,8 @@ import com.epam.generator.facade.DataGeneratorFacade;
 import com.epam.generator.facade.ImpexGeneratorFacade;
 import com.epam.generator.model.SolutionEnum;
 import com.epam.generator.model.dto.ContractDTO;
-import com.epam.generator.model.jsresponse.ContractJsonResponse;
 import com.epam.generator.model.dto.TestDataDTO;
+import com.epam.generator.model.jsresponse.ContractJsonResponse;
 import com.epam.generator.model.jsresponse.SolutionJsonResponse;
 import com.epam.generator.service.impl.ContractDataCreationService;
 import org.slf4j.Logger;
@@ -23,7 +23,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.Arrays;
-import java.util.stream.Collectors;
 
 import static com.epam.generator.model.SolutionEditionEnum.BYD_CLASSIC;
 import static com.epam.generator.model.SolutionEditionEnum.BYD_SIMPL;
@@ -41,7 +40,7 @@ public class MainController {
     private static final Logger LOG = LoggerFactory.getLogger(MainController.class);
     private static final String TEST_DATA_KEY = "testData";
     private static final String CONTRACT_DATA_KEY = "contractData";
-
+    private static final String ORDER_DATA_KEY = "orderData";
 
     @Autowired
     DataGeneratorFacade dataGeneratorFacade;
@@ -52,14 +51,14 @@ public class MainController {
 
     TestDataDTO testDataDTOClass = new TestDataDTO();
     ContractDTO contractDTOClass = new ContractDTO();
-
+    ContractDTO orderDTOClass = new ContractDTO();
 
     @GetMapping("/register")
     public String showForm(Model model) {
 
         model.addAttribute(TEST_DATA_KEY, testDataDTOClass);
 
-        return "register_form";
+        return "partner_form";
     }
 
     @PostMapping("/register")
@@ -72,8 +71,9 @@ public class MainController {
 
         model.addAttribute(TEST_DATA_KEY, testDataDTOClass);
         model.addAttribute(CONTRACT_DATA_KEY, contractDTOClass);
+        model.addAttribute(ORDER_DATA_KEY, orderDTOClass);
 
-        return "register_success";
+        return "contract_form";
     }
 
     @GetMapping("/generate")
@@ -86,12 +86,12 @@ public class MainController {
         return "generate_success";
     }
 
-    @PostMapping(value = "/contract/add", produces = {MediaType.APPLICATION_JSON_VALUE})
+    @PostMapping(value = "/contract/add", produces = { MediaType.APPLICATION_JSON_VALUE })
     @ResponseBody
     public ContractJsonResponse addContract(@RequestBody ContractDTO contractDTO) {
         ContractJsonResponse contractJsonResponse = new ContractJsonResponse();
 
-        LOG.info("-----CONTROLLER METHOD ADD------");
+        LOG.info("-----CONTROLLER METHOD ADD CONTRACT------");
 
         getContractDataCreationService().addContractToCustomer(testDataDTOClass, contractDTO);
         testDataDTOClass.getCustomers()
@@ -102,7 +102,7 @@ public class MainController {
         return contractJsonResponse;
     }
 
-    @PostMapping(value = "/solutionEdition", produces = {MediaType.APPLICATION_JSON_VALUE})
+    @PostMapping(value = "/solutionEdition", produces = { MediaType.APPLICATION_JSON_VALUE })
     @ResponseBody
     public SolutionJsonResponse getSolutionEdition(@RequestBody String solution) {
         SolutionJsonResponse solutionJsonResponse = new SolutionJsonResponse();
@@ -111,16 +111,18 @@ public class MainController {
         LOG.info(solution);
         switch (SolutionEnum.valueOf(solution.replaceAll("\"", ""))) {
             case PREM:
-                solutionJsonResponse.setSolutionEditions(Arrays.asList(PREM_START.getValue(), PREM_PROF.getValue()));
+                solutionJsonResponse.setSolutionEditions(Arrays.asList(PREM_START, PREM_PROF));
                 break;
             case CLOUD_SAP:
-                solutionJsonResponse.setSolutionEditions(Arrays.asList(CLOUD_SAP_START.getValue(), CLOUD_SAP_PROF.getValue()));
+                solutionJsonResponse
+                        .setSolutionEditions(Arrays.asList(CLOUD_SAP_START, CLOUD_SAP_PROF));
                 break;
             case CLOUD_PARTNER:
-                solutionJsonResponse.setSolutionEditions(Arrays.asList(CLOUD_PART_START.getValue(), CLOUD_PART_PROF.getValue()));
+                solutionJsonResponse
+                        .setSolutionEditions(Arrays.asList(CLOUD_PART_START, CLOUD_PART_PROF));
                 break;
             case BYD_CLOUD:
-                solutionJsonResponse.setSolutionEditions(Arrays.asList(BYD_CLASSIC.getValue(), BYD_SIMPL.getValue()));
+                solutionJsonResponse.setSolutionEditions(Arrays.asList(BYD_CLASSIC, BYD_SIMPL));
                 break;
             default:
                 LOG.warn("Unknown solution");
@@ -131,6 +133,22 @@ public class MainController {
         }
 
         return solutionJsonResponse;
+    }
+
+    @PostMapping(value = "/order/add", produces = { MediaType.APPLICATION_JSON_VALUE })
+    @ResponseBody
+    public ContractJsonResponse addOrder(@RequestBody ContractDTO orderDTO) {
+        ContractJsonResponse contractJsonResponse = new ContractJsonResponse();
+
+        LOG.info("-----CONTROLLER METHOD ADD ORDER------");
+
+        getContractDataCreationService().addOrderToContract(testDataDTOClass, orderDTO);
+        testDataDTOClass.getCustomers().forEach(customerDTO -> customerDTO.getContracts()
+                .forEach(contractDTO -> contractJsonResponse.addContractDTOs(contractDTO.getOrders())));
+        if (!CollectionUtils.isEmpty(contractJsonResponse.getContractDTOList())) {
+            contractJsonResponse.setValidated(true);
+        }
+        return contractJsonResponse;
     }
 
     public DataGeneratorFacade getDataGeneratorFacade() {

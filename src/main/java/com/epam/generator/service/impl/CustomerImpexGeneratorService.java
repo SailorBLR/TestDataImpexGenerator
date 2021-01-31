@@ -41,8 +41,10 @@ public class CustomerImpexGeneratorService implements ImpexGenerator {
 
     @Autowired
     ResourceLoader resourceLoader;
-    @Value("${impex.labels.customer-orgs}")
+    @Value("impex.labels.customer-org-header")
     private String customerOrgsHeader;
+    @Value("${impex.labels.customer-orgs}")
+    private String customerOrgsLabel;
     @Value("${impex.labels.customer-contact}")
     private String customerContactHeader;
     @Value("${impex.labels.customer-address}")
@@ -75,9 +77,11 @@ public class CustomerImpexGeneratorService implements ImpexGenerator {
     }
 
     private void generateCustomerOrg(final TestDataDTO testDataDTO, BufferedWriter writer) throws IOException {
+        writer.write(customerOrgsHeader);
+        writer.newLine();
         writer.write("# Customer Orgs");
         writer.newLine();
-        writer.write(customerOrgsHeader);
+        writer.write(customerOrgsLabel);
         writer.newLine();
         for (CustomerDTO customerDTO : testDataDTO.getCustomers()) {
             appendItem(writer, customerDTO.getUid());
@@ -93,6 +97,7 @@ public class CustomerImpexGeneratorService implements ImpexGenerator {
             appendDefault(writer);
             appendDefault(writer);
             appendItem(writer, customerDTO.getUid());
+            appendDefault(writer);
             writer.newLine();
         }
     }
@@ -100,7 +105,7 @@ public class CustomerImpexGeneratorService implements ImpexGenerator {
     private void generateContact(final TestDataDTO testDataDTO, BufferedWriter writer) throws IOException {
         writer.write("# Customer contacts");
         writer.newLine();
-        writer.write(customerOrgsHeader);
+        writer.write(customerOrgsLabel);
         writer.newLine();
         for (CustomerDTO customerDTO : testDataDTO.getCustomers()) {
             appendItem(writer, customerDTO.getCustomerContact().getUid());
@@ -138,7 +143,7 @@ public class CustomerImpexGeneratorService implements ImpexGenerator {
             appendItem(writer, FAX);
             appendItem(writer, PHONE);
             appendItem(writer, CELLPHONE);
-            writer.append(SEMICOLON);
+            appendDefault(writer);
             writer.newLine();
         }
     }
@@ -164,7 +169,7 @@ public class CustomerImpexGeneratorService implements ImpexGenerator {
         writer.newLine();
         for (CustomerDTO customerDTO : testDataDTO.getCustomers()) {
             appendItem(writer, customerDTO.getCustomerContact().getUid());
-            appendItem(writer, customerDTO.getCustomerContact().getUid() + CUSTOMER_KEY_POSTFIX);
+            appendItem(writer, customerDTO.getCustomerContact().getUid() + "|" + CUSTOMER_KEY_POSTFIX);
             appendItem(writer, customerDTO.getUid());
             appendItem(writer, SAP_ADDRESS_USAGE_AP);
             appendItem(writer, CUSTOMER_STREET);
@@ -200,7 +205,6 @@ public class CustomerImpexGeneratorService implements ImpexGenerator {
             appendItem(writer, "1080");
             appendItem(writer, CUSTOMER_TOWN);
             appendItem(writer, CUSTOMER_COUNTRY);
-            appendDefault(writer);
             appendDefault(writer);
             appendDefault(writer);
             appendDefault(writer);

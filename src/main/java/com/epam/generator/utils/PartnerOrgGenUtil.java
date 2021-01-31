@@ -30,7 +30,7 @@ public class PartnerOrgGenUtil {
 
         addressLine.append(SEMICOLON).append(partnerUid).append(SEMICOLON).append(partnerContact.getEmail()).append(SEMICOLON)
                 .append(partnerContact.getCustomerId()).append(SEMICOLON).append(SAP_ADDRESS_USAGE_AG).append(SEMICOLON).append(STREETNAME)
-                .append(SEMICOLON).append(POSTAL_CODE).append(SEMICOLON).append(TOWN).append(SEMICOLON).append(COUNTRY_ISO_DE).append(SEMICOLON)
+                .append(SEMICOLON).append(SEMICOLON).append(POSTAL_CODE).append(SEMICOLON).append(TOWN).append(SEMICOLON).append(COUNTRY_ISO_DE).append(SEMICOLON)
                 .append(FAX).append(SEMICOLON).append(PHONE).append(SEMICOLON).append(CELLPHONE).append(SEMICOLON).append(USAGE_COUNTER).append(SEMICOLON)
                 .append(SEMICOLON);
         return String.valueOf(addressLine);
@@ -39,7 +39,7 @@ public class PartnerOrgGenUtil {
     public static String generateOrgLine(final String partnerUid) {
         StringBuilder salesOrgLine = new StringBuilder();
 
-        salesOrgLine.append(SEMICOLON).append(partnerUid).append(SALES_ORG_POSTFIX).append(SEMICOLON).append(SALES_ORG_NAME).append(partnerUid).append(COMMA)
+        salesOrgLine.append(SEMICOLON).append(partnerUid).append(SALES_ORG_POSTFIX).append(SEMICOLON).append(SALES_ORG_NAME).append(SEMICOLON).append(partnerUid).append(COMMA)
                 .append(CUSTOMERGROUP).append(COMMA).append(ODBUYGROUP).append(SEMICOLON).append(SALES_ORG_NAME).append(SEMICOLON).append(SALES_ORG_NAME)
                 .append(SEMICOLON).append(SEMICOLON).append(SEMICOLON).append(SEMICOLON).append("true").append(SEMICOLON).append(COUNTRY_ISO_JP).append(SEMICOLON)
                 .append("01").append(SEMICOLON).append("DAP").append(SEMICOLON).append("Tokyo").append(SEMICOLON).append("01").append(SEMICOLON).append("00");
@@ -50,7 +50,7 @@ public class PartnerOrgGenUtil {
         StringBuilder contactLine = new StringBuilder();
 
         contactLine.append(SEMICOLON).append(partnerContact.getUid()).append(SEMICOLON).append(partnerContact.getEmail()).append(SEMICOLON).append(partnerUid)
-                .append(SEMICOLON).append(SAP_ADDRESS_USAGE_AP).append(SEMICOLON).append(STREETNAME).append(SEMICOLON).append(POSTAL_CODE).append(SEMICOLON)
+                .append(SEMICOLON).append(SAP_ADDRESS_USAGE_AP).append(SEMICOLON).append(STREETNAME).append(SEMICOLON).append(SEMICOLON).append(POSTAL_CODE).append(SEMICOLON)
                 .append(TOWN).append(SEMICOLON).append(COUNTRY_ISO_DE).append(SEMICOLON).append(FAX).append(SEMICOLON).append(PHONE).append(SEMICOLON)
                 .append(CELLPHONE).append(SEMICOLON).append(USAGE_COUNTER).append(SEMICOLON);
 

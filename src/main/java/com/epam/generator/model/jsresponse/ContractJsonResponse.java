@@ -1,11 +1,13 @@
 package com.epam.generator.model.jsresponse;
 
-
 import com.epam.generator.model.dto.ContractDTO;
 
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * JSON response for adding contract data
+ */
 public class ContractJsonResponse {
     private List<ContractDTO> contractDTOList;
     private boolean validated;

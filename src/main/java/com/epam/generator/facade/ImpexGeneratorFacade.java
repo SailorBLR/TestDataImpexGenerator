@@ -2,22 +2,34 @@ package com.epam.generator.facade;
 
 import com.epam.generator.model.dto.TestDataDTO;
 import com.epam.generator.service.impl.ContractImpexGeneratorService;
+import com.epam.generator.service.impl.ContractRelationsImpexGeneratorService;
 import com.epam.generator.service.impl.CustomerImpexGeneratorService;
+import com.epam.generator.service.impl.LicenseScopeImpexGeneratorService;
+import com.epam.generator.service.impl.OrderImpexGeneratorService;
 import com.epam.generator.service.impl.PartnerImpexGeneratorService;
 import com.epam.generator.service.impl.TypesImpexGeneratorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+/**
+ * Facade composes impex creation services
+ */
 @Component
 public class ImpexGeneratorFacade {
     @Autowired
-    PartnerImpexGeneratorService partnerImpexGeneratorService;
+    private PartnerImpexGeneratorService partnerImpexGeneratorService;
     @Autowired
-    TypesImpexGeneratorService typesImpexGeneratorService;
+    private TypesImpexGeneratorService typesImpexGeneratorService;
     @Autowired
-    CustomerImpexGeneratorService customerImpexGeneratorService;
+    private CustomerImpexGeneratorService customerImpexGeneratorService;
     @Autowired
-    ContractImpexGeneratorService contractImpexGeneratorService;
+    private ContractImpexGeneratorService contractImpexGeneratorService;
+    @Autowired
+    private OrderImpexGeneratorService orderImpexGeneratorService;
+    @Autowired
+    private ContractRelationsImpexGeneratorService contractRelationsImpexGeneratorService;
+    @Autowired
+    private LicenseScopeImpexGeneratorService licenseScopeImpexGeneratorService;
 
 
     public void generateImpexes(TestDataDTO testDataDTO) {
@@ -25,6 +37,9 @@ public class ImpexGeneratorFacade {
         getTypesImpexGeneratorService().generate(testDataDTO);
         getCustomerImpexGeneratorService().generate(testDataDTO);
         getContractImpexGeneratorService().generate(testDataDTO);
+        getOrderImpexGeneratorService().generate(testDataDTO);
+        getContractRelationsImpexGeneratorService().generate(testDataDTO);
+        getLicenseScopeImpexGeneratorService().generate(testDataDTO);
     }
 
     public PartnerImpexGeneratorService getPartnerImpexGeneratorService() {
@@ -57,5 +72,31 @@ public class ImpexGeneratorFacade {
 
     public void setContractImpexGeneratorService(ContractImpexGeneratorService contractImpexGeneratorService) {
         this.contractImpexGeneratorService = contractImpexGeneratorService;
+    }
+
+    public OrderImpexGeneratorService getOrderImpexGeneratorService() {
+        return orderImpexGeneratorService;
+    }
+
+    public void setOrderImpexGeneratorService(OrderImpexGeneratorService orderImpexGeneratorService) {
+        this.orderImpexGeneratorService = orderImpexGeneratorService;
+    }
+
+    public ContractRelationsImpexGeneratorService getContractRelationsImpexGeneratorService() {
+        return contractRelationsImpexGeneratorService;
+    }
+
+    public void setContractRelationsImpexGeneratorService(
+            ContractRelationsImpexGeneratorService contractRelationsImpexGeneratorService) {
+        this.contractRelationsImpexGeneratorService = contractRelationsImpexGeneratorService;
+    }
+
+    public LicenseScopeImpexGeneratorService getLicenseScopeImpexGeneratorService() {
+        return licenseScopeImpexGeneratorService;
+    }
+
+    public void setLicenseScopeImpexGeneratorService(
+            LicenseScopeImpexGeneratorService licenseScopeImpexGeneratorService) {
+        this.licenseScopeImpexGeneratorService = licenseScopeImpexGeneratorService;
     }
 }

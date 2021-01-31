@@ -1,13 +1,18 @@
 package com.epam.generator.model;
 
-public enum ContractTypeEnum {
+/**
+ * Possible transaction types enum
+ */
+public enum TransactionTypeEnum {
     ZVA("ZVA"),
     ZVAL("ZVAL"),
-    ZK02("ZK02");
+    ZK04("ZK04"),
+    ZK02("ZK02"),
+    ZK09("ZK09");
 
     private String value;
 
-    private ContractTypeEnum(final String value) {
+    private TransactionTypeEnum(final String value) {
         this.value = value;
     }
 

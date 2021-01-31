@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static java.util.Objects.isNull;
-import static org.apache.logging.log4j.ThreadContext.isEmpty;
 
 public class CustomerDTO {
     private String uid;
@@ -15,7 +14,7 @@ public class CustomerDTO {
     private String partnerContact;
     private List<ContractDTO> contracts;
 
-    public CustomerDTO (){
+    public CustomerDTO() {
         this.contracts = new ArrayList<>();
     }
 
@@ -60,27 +59,29 @@ public class CustomerDTO {
     }
 
     public void setPartnerContact(String partnerContact) {
-        if(isNull(this.partnerContact)) {
+        if (isNull(this.partnerContact)) {
             this.partnerContact = partnerContact;
         }
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+    @Override public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
 
         CustomerDTO that = (CustomerDTO) o;
 
-        if (uid != null ? !uid.equals(that.uid) : that.uid != null) return false;
-        if (name != null ? !name.equals(that.name) : that.name != null) return false;
+        if (uid != null ? !uid.equals(that.uid) : that.uid != null)
+            return false;
+        if (name != null ? !name.equals(that.name) : that.name != null)
+            return false;
         if (customerContact != null ? !customerContact.equals(that.customerContact) : that.customerContact != null)
             return false;
         return contracts != null ? contracts.equals(that.contracts) : that.contracts == null;
     }
 
-    @Override
-    public int hashCode() {
+    @Override public int hashCode() {
         int result = uid != null ? uid.hashCode() : 0;
         result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result + (customerContact != null ? customerContact.hashCode() : 0);
