@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.validation.Valid;
 import java.util.Arrays;
 
 import static com.epam.generator.model.SolutionEditionEnum.BYD_CLASSIC;
@@ -88,7 +89,7 @@ public class MainController {
 
     @PostMapping(value = "/contract/add", produces = { MediaType.APPLICATION_JSON_VALUE })
     @ResponseBody
-    public ContractJsonResponse addContract(@RequestBody ContractDTO contractDTO) {
+    public ContractJsonResponse addContract(@RequestBody @Valid ContractDTO contractDTO) {
         ContractJsonResponse contractJsonResponse = new ContractJsonResponse();
 
         LOG.info("-----CONTROLLER METHOD ADD CONTRACT------");

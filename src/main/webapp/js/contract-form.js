@@ -1,6 +1,6 @@
 $(document).ready(function () {
     updateSolutionEdition();
-
+    setDefaultValues();
     $("#contractForm").submit(function (event) {
         event.preventDefault();
         fire_ajax_contract_submit();
@@ -153,4 +153,20 @@ function updatePredecessorsList() {
         });
     }
     $('#predecessorId').html(htmlPredecessor);
+}
+
+function setDefaultValues() {
+    $("#orderEntries").val("1");
+    $("#entriesPrice").val("0.00");
+    let dateNow = new Date();
+    dateNow.setSeconds(0, 0);
+    let dateNowFormatted = dateNow.toISOString().replace(/:00.000Z/, "");
+    let oneYearFromNow = new Date();
+    oneYearFromNow.setFullYear(oneYearFromNow.getFullYear() + 1);
+    oneYearFromNow.setSeconds(0, 0);
+    let oneYearFromNowFormatted = oneYearFromNow.toISOString().replace(/:00.000Z/, "");
+    console.log(oneYearFromNow);
+    console.log(oneYearFromNowFormatted);
+    $('#startDate').val(dateNowFormatted);
+    $('#endDate').val(oneYearFromNowFormatted);
 }

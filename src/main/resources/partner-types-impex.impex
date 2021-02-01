@@ -1,7 +1,0 @@
-# Partner Types
-INSERT_UPDATE PartnerType;mainCategory[unique = true];subCategory[unique = true];status;cpProgram;validFrom[dateformat = dd.MM.yyyy HH:mm:ss];validTo[dateformat = dd.MM.yyyy HH:mm:ss];b2bUnit(uid)[unique = true];
-;VAR;;P;GOPE;26.04.2010 00:00:00;26.04.2050 00:00:00;partner_org_191_1;
-;VAR;B1PA;P;;26.04.2010 00:00:00;26.04.2050 00:00:00;partner_org_191_1;
-;RUN;;P;GOPE;26.04.2010 00:00:00;26.04.2050 00:00:00;partner_org_191_1;
-;VAR;CB1S;P;;26.04.2010 00:00:00;26.04.2050 00:00:00;partner_org_191_1;
-;RUN;CB1R;P;;26.04.2010 00:00:00;26.04.2050 00:00:00;partner_org_191_1;

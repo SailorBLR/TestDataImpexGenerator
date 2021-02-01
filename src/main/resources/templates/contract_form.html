@@ -6,6 +6,8 @@
     <link href="/css/styles.css" rel="stylesheet"></link>
     <script type="text/javascript"
             src="http://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script type="text/javascript"
+            src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.7.0/moment.min.js"></script>
     <script type="text/javascript" src="js/contract-form.js"></script>
     <meta charset="ISO-8859-1">
     <title>Registration Success</title>
@@ -66,10 +68,10 @@
 
 
             <label>Contract start date:</label>
-            <input type="datetime-local" id="startDate" th:field="*{startDate}"/><br/>
+            <input type="datetime-local" id="startDate" th:field="*{startDate}" required/><br/>
 
             <label>Contract end date:</label>
-            <input type="datetime-local" id="endDate" th:field="*{endDate}"/><br/>
+            <input type="datetime-local" id="endDate" th:field="*{endDate}" required/><br/>
 
             <span>Select transaction type</span>
             <span><select th:field="*{contractType}" id="contractType">
@@ -114,10 +116,10 @@
             </select></span><br/>
 
             <label>How many order entries required:</label>
-            <input type="number" id="orderEntries" th:field="*{orderEntries}"/><br/>
+            <input type="number" id="orderEntries" th:field="*{orderEntries}" max="4" min="1" value="1"/><br/>
 
             <label>Specify order entry price</label>
-            <input type="number" step="0.01" id="entriesPrice" th:field="*{entriesPrice}"/><br/>
+            <input type="number" step="0.01" id="entriesPrice" th:field="*{entriesPrice}" value="0.00"/><br/>
 
             <span>Select transaction type</span>
             <span><select th:field="*{contractType}" id="transactionType">

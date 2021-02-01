@@ -1,5 +1,6 @@
 package com.epam.generator.model.dto;
 
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +11,9 @@ public class ContractDTO {
     private String solution;
     private String solutionEdition;
     private boolean manageable;
+    @NotNull
     private LocalDateTime startDate;
+    @NotNull
     private LocalDateTime endDate;
     private String orderType;
     private int orderEntries;

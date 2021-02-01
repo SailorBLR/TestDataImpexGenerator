@@ -99,8 +99,9 @@ import static org.springframework.util.CollectionUtils.isEmpty;
             appendItem(writer, contractDTO.getContractType());
             appendItem(writer, BACKEND_CONTRACT_ID_PREFIX
                     .concat(CustomerOrgGenUtil.getPartnerContractNumeric(contractDTO.getUid())));
+            writer.newLine();
         }
-        writer.newLine();
+
     }
 
     private void generateLicenseContractRelations(final ContractDTO contractDTO, BufferedWriter writer)
