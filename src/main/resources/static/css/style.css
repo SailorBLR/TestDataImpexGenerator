@@ -428,7 +428,7 @@ select {
     background: #ff6801;
     color: #fff; }
 
-#submit {
+.submit {
   background: #ff6801;
   color: #fff; }
   #submit:hover {
