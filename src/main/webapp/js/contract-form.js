@@ -165,8 +165,6 @@ function setDefaultValues() {
     oneYearFromNow.setFullYear(oneYearFromNow.getFullYear() + 1);
     oneYearFromNow.setSeconds(0, 0);
     let oneYearFromNowFormatted = oneYearFromNow.toISOString().replace(/:00.000Z/, "");
-    console.log(oneYearFromNow);
-    console.log(oneYearFromNowFormatted);
     $('#startDate').val(dateNowFormatted);
     $('#endDate').val(oneYearFromNowFormatted);
 }
