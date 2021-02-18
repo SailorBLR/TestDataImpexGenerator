@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 import java.util.Arrays;
 
 import static com.epam.generator.utils.DataGeneratorConstants.CustomerConstants.*;
+import static com.epam.generator.utils.DataGeneratorConstants.PartnerConstants.EMAIL_POSTFIX;
 import static com.epam.generator.utils.DataGeneratorConstants.PartnerConstants.ID_SUFFIX;
 import static com.epam.generator.utils.DataGeneratorConstants.PartnerConstants.UNDERSCORE;
 
@@ -38,7 +39,7 @@ public class CustomerDataCreationService implements DataCreationService {
     private PartnerContact generateContact(final TestDataDTO testDataDTO, final int number, final String customerId) {
         PartnerContact partnerContact = new PartnerContact();
 
-        partnerContact.setUid(CUSTOMER_CONTACT_PREFIX + testDataDTO.getStoryId() + UNDERSCORE + testDataDTO.getPartnerNumber() + UNDERSCORE + number);
+        partnerContact.setUid(CUSTOMER_CONTACT_PREFIX + testDataDTO.getStoryId() + UNDERSCORE + testDataDTO.getPartnerNumber() + UNDERSCORE + number + EMAIL_POSTFIX);
         partnerContact.setEmail(partnerContact.getUid());
         partnerContact.setGroups(Arrays.asList(customerId, B2BCUSTOMER_GROUP));
         partnerContact.setName(CUSTOMER_NAME_PREFIX + testDataDTO.getStoryId() + UNDERSCORE + testDataDTO.getPartnerNumber() + UNDERSCORE + number);

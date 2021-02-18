@@ -77,7 +77,7 @@ function fire_ajax_order_submit() {
     orderData["predecessorId"] = $("#predecessorId").val();
     orderData["orderEntries"] = $("#orderEntries").val();
     orderData["entriesPrice"] = $("#entriesPrice").val();
-    orderData["orderStatus"] = $("orderStatus").val();
+    orderData["orderStatus"] = $("#orderStatus").val();
 
 
     $("#btn-search").prop("disabled", true);

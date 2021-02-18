@@ -41,7 +41,7 @@ public class CustomerImpexGeneratorService implements ImpexGenerator {
 
     @Autowired
     ResourceLoader resourceLoader;
-    @Value("impex.labels.customer-org-header")
+    @Value("${impex.labels.customer-org-header}")
     private String customerOrgsHeader;
     @Value("${impex.labels.customer-orgs}")
     private String customerOrgsLabel;
@@ -105,7 +105,7 @@ public class CustomerImpexGeneratorService implements ImpexGenerator {
     private void generateContact(final TestDataDTO testDataDTO, BufferedWriter writer) throws IOException {
         writer.write("# Customer contacts");
         writer.newLine();
-        writer.write(customerOrgsLabel);
+        writer.write(customerContactHeader);
         writer.newLine();
         for (CustomerDTO customerDTO : testDataDTO.getCustomers()) {
             appendItem(writer, customerDTO.getCustomerContact().getUid());

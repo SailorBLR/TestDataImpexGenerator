@@ -16,6 +16,7 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.CollectionUtils;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -44,15 +45,15 @@ public class MainController {
     private static final String ORDER_DATA_KEY = "orderData";
 
     @Autowired
-    DataGeneratorFacade dataGeneratorFacade;
+    private DataGeneratorFacade dataGeneratorFacade;
     @Autowired
-    ImpexGeneratorFacade impexGeneratorFacade;
+    private ImpexGeneratorFacade impexGeneratorFacade;
     @Autowired
-    ContractDataCreationService contractDataCreationService;
+    private ContractDataCreationService contractDataCreationService;
 
-    TestDataDTO testDataDTOClass = new TestDataDTO();
-    ContractDTO contractDTOClass = new ContractDTO();
-    ContractDTO orderDTOClass = new ContractDTO();
+    private TestDataDTO testDataDTOClass = new TestDataDTO();
+    private ContractDTO contractDTOClass = new ContractDTO();
+    private ContractDTO orderDTOClass = new ContractDTO();
 
     @GetMapping("/register")
     public String showForm(Model model) {
@@ -103,6 +104,24 @@ public class MainController {
         return contractJsonResponse;
     }
 
+//    @DeleteMapping(value = "/contract", produces = { MediaType.APPLICATION_JSON_VALUE })
+//    @ResponseBody
+//    public ContractJsonResponse removeContract(@RequestBody @Valid ContractDTO contractDTO) {
+//        ContractJsonResponse contractJsonResponse = new ContractJsonResponse();
+//
+//        LOG.info("-----CONTROLLER METHOD REMOVE CONTRACT------");
+//
+//        getContractDataCreationService().addContractToCustomer(testDataDTOClass, contractDTO);
+//        testDataDTOClass.getCustomers()
+//                .forEach(customerDTO -> contractJsonResponse.addContractDTOs(customerDTO.getContracts()));
+//        if (!CollectionUtils.isEmpty(contractJsonResponse.getContractDTOList())) {
+//            contractJsonResponse.setValidated(true);
+//        }
+//        return contractJsonResponse;
+//    }
+
+
+
     @PostMapping(value = "/solutionEdition", produces = { MediaType.APPLICATION_JSON_VALUE })
     @ResponseBody
     public SolutionJsonResponse getSolutionEdition(@RequestBody String solution) {
@@ -150,6 +169,14 @@ public class MainController {
             contractJsonResponse.setValidated(true);
         }
         return contractJsonResponse;
+    }
+
+    @GetMapping(value = "/refresh")
+    public String refreshEverything(Model model) {
+        testDataDTOClass = new TestDataDTO();
+        model.addAttribute(TEST_DATA_KEY, testDataDTOClass);
+
+        return "partner_form";
     }
 
     public DataGeneratorFacade getDataGeneratorFacade() {

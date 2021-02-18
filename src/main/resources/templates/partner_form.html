@@ -1,19 +1,37 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">>
 <head>
+    <title>Partner Generation Form</title>
+<!--    -->
+<!--    <meta charset="UTF-8">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--    <meta http-equiv="X-UA-Compatible" content="ie=edge">-->
+<!--    -->
+
+<!--    &lt;!&ndash; Font Icon &ndash;&gt;-->
+<!--    <link rel="stylesheet" href="fonts/material-icon/css/material-design-iconic-font.min.css">-->
+<!--    <script type="text/javascript"-->
+<!--            src="http://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>-->
+<!--    <script src="vendor/jquery/jquery.min.js"></script>-->
+<!--    <script src="js/main.js"></script>-->
+<!--    &lt;!&ndash; Main css &ndash;&gt;-->
+<!--    <link rel="stylesheet" href="css/style.css">-->
+    <script type="text/javascript"
+            src="http://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script type="text/javascript" src="js/contract-form.js"></script>
+    <meta charset="ISO-8859-1">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Partner Generation Form</title>
 
     <!-- Font Icon -->
     <link rel="stylesheet" href="fonts/material-icon/css/material-design-iconic-font.min.css">
-    <script type="text/javascript"
-            src="http://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="js/main.js"></script>
+
     <!-- Main css -->
     <link rel="stylesheet" href="css/style.css">
+
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="js/main.js"></script>
 </head>
 <body>
 
@@ -34,35 +52,46 @@
                         </div>
                         <div class="form-group">
                             <label for="partnerNumber">Partner serial number:</label>
-                            <input name="partnerNumber" id="partnerNumber" type="number" th:field="*{partnerNumber}" required/>
+                            <input name="partnerNumber" id="partnerNumber" type="number" min="0" th:field="*{partnerNumber}" required/>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="customersQuantity">How many customers required:</label>
                         <input name="customersQuantity" id="customersQuantity" type="number"
-                               th:field="*{requiredCustomersQuantity}" min="1"/>
+                               th:field="*{requiredCustomersQuantity}" min="1" th:default="1"/>
                     </div>
 
                     <div class="form-group">
                         <label for="partnerContacts">How many partner contacts required:</label>
-                        <input name="partnerContacts" id="partnerContacts" type="number" th:field="*{requiredContactsQuantity}" min="1"/>
+                        <input name="partnerContacts" id="partnerContacts" type="number" th:field="*{requiredContactsQuantity}" min="1" th:default="1"/>
                     </div>
 
                     <div class="form-group">
                         <label for="managersQuantity">How many partner managers required:</label>
-                        <input name="managersQuantity" id="managersQuantity" type="number" th:field="*{requiredManagersQuantity}"/>
+                        <input name="managersQuantity" id="managersQuantity" type="number" th:field="*{requiredManagersQuantity}" min="0"/>
                     </div>
 
                     <div class="form-group">
                         <label for="approversQuantity">How many attachment approvers required:</label>
-                        <input name="approversQuantity" id="approversQuantity" type="number" th:field="*{requiredAttachmentApproversQuantity}"/><br/>
+                        <input name="approversQuantity" id="approversQuantity" type="number" th:field="*{requiredAttachmentApproversQuantity}" min="0"/><br/>
 
                     </div>
 
-                    <div class="form-submit">
-<!--                        <input type="submit" value="Reset All" class="submit" name="reset" id="reset"/>-->
-                        <input type="submit" value="Submit Form" class="submit" name="submit" id="submit"/>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <button class="submit" onclick="location.href='/refresh'" type="button">
+                                Refresh Everything</button>
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" value="Submit Form" class="submit" name="submit" id="submit"/>
+                        </div>
                     </div>
+
+<!--                    <div class="form-submit">-->
+<!--                        <button class="submit" onclick="location.href='/refresh'" type="button">-->
+<!--                            Refresh Everything</button>-->
+<!--                        <input type="submit" value="Submit Form" class="submit" name="submit" id="submit"/>-->
+<!--                    </div>-->
                 </form>
             </div>
         </div>
