@@ -49,7 +49,7 @@ public class PartnerOrgGenUtil {
     public static String generateContactAddressLine(final PartnerContact partnerContact, final String partnerUid) {
         StringBuilder contactLine = new StringBuilder();
 
-        contactLine.append(SEMICOLON).append(partnerContact.getUid()).append(SEMICOLON).append(partnerContact.getEmail()).append(SEMICOLON).append(partnerUid)
+        contactLine.append(SEMICOLON).append(partnerContact.getUid()).append(SEMICOLON).append(partnerContact.getEmail()).append("|0001").append(SEMICOLON).append(partnerUid)
                 .append(SEMICOLON).append(SAP_ADDRESS_USAGE_AP).append(SEMICOLON).append(STREETNAME).append(SEMICOLON).append(SEMICOLON).append(POSTAL_CODE).append(SEMICOLON)
                 .append(TOWN).append(SEMICOLON).append(COUNTRY_ISO_DE).append(SEMICOLON).append(FAX).append(SEMICOLON).append(PHONE).append(SEMICOLON)
                 .append(CELLPHONE).append(SEMICOLON).append(USAGE_COUNTER).append(SEMICOLON);
